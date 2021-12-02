@@ -90,5 +90,17 @@ doctl kubernetes cluster upgrade do-kapplegate --version 1.21.5-do.0
 Notice: Upgrading cluster to version 1.21.5-do.0
 ```
 
+The upgrade did take quite awhile (3+ hours but I let it go over night). However, once it completed I was able to see the cluster was updated:
+```bash
+% k get nodes
+NAME                               STATUS   ROLES    AGE   VERSION
+do-kapplegate-default-pool-ubjj7   Ready    <none>   11h   v1.21.5
+do-kapplegate-default-pool-ubjjc   Ready    <none>   11h   v1.21.5
+do-kapplegate-default-pool-ubjju   Ready    <none>   11h   v1.21.5
+```
 
+The Vcluster was up the whole time and was available without skipping a beat. Also, since the controller of the vcluster is runnign as a pod on the worker nodes, even while the host cluster was unavailable during the upgrade, the guest cluster was fully responsive. Very cool stuff. 
+
+## Conclusion
+Both the Digital Ocean Kubernetes offering and the vcluster stack performed fantastic. Both are worthy of consideration for use-cases that can take advantage of them. I am finding a large amount of cluster sprawl in customers that I talk to. Especially when environments make it so easy to spin up clusters, the increased attack surface, resource under-utilization, and complexity compound exponentially. 
 
